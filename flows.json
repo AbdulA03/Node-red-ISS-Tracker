@@ -1,0 +1,3096 @@
+[
+    {
+        "id": "c7a55f3cc37ae2d4",
+        "type": "subflow",
+        "name": "Chatgpt API Assistant",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 560,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "f24f137c4f01a6b5"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1720,
+                "y": 780,
+                "wires": [
+                    {
+                        "id": "172de4fe1a1d69ab",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1720,
+                "y": 660,
+                "wires": [
+                    {
+                        "id": "58c20826db10061c",
+                        "port": 0
+                    },
+                    {
+                        "id": "e6c68c9a44edf751",
+                        "port": 0
+                    },
+                    {
+                        "id": "3680816ee1cc7193",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99",
+        "status": {
+            "x": 1660,
+            "y": 400,
+            "wires": [
+                {
+                    "id": "a2c342ed5fbba5a3",
+                    "port": 0
+                },
+                {
+                    "id": "742ce4277b40cb9d",
+                    "port": 0
+                },
+                {
+                    "id": "144f05db091f0b47",
+                    "port": 0
+                },
+                {
+                    "id": "3680816ee1cc7193",
+                    "port": 0
+                },
+                {
+                    "id": "58c20826db10061c",
+                    "port": 0
+                },
+                {
+                    "id": "e6c68c9a44edf751",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
+        "id": "f24f137c4f01a6b5",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "438072214db9d4db",
+        "name": "P v1/threads",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.openai.com/v1/threads",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 790,
+        "y": 240,
+        "wires": [
+            [
+                "757105417f0148d6"
+            ]
+        ]
+    },
+    {
+        "id": "a8039fddbcaf65c2",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "P v1/threads/thread_id/messages",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 1040,
+        "y": 360,
+        "wires": [
+            [
+                "742ce4277b40cb9d",
+                "48ee1b34368ef1dd",
+                "8806364e8917f2c5"
+            ]
+        ]
+    },
+    {
+        "id": "7b0edadfa10c3b71",
+        "type": "template",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{payload.id}}/messages",
+        "output": "str",
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "42d22e61154ff546",
+                "aa85283c21af91b9"
+            ]
+        ]
+    },
+    {
+        "id": "a4aba876a789a641",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "a432db9cb913d833",
+        "name": "G v1/threads/thread_id/runs",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 500,
+        "y": 500,
+        "wires": [
+            [
+                "70c49581a0998a22"
+            ]
+        ]
+    },
+    {
+        "id": "0f5488e37a493661",
+        "type": "template",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "a432db9cb913d833",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/runs",
+        "output": "str",
+        "x": 220,
+        "y": 500,
+        "wires": [
+            [
+                "a4aba876a789a641",
+                "f06f4b43db4ec849"
+            ]
+        ]
+    },
+    {
+        "id": "757105417f0148d6",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "438072214db9d4db",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "thread",
+                "pt": "msg",
+                "to": "payload.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "assistant",
+                "pt": "msg",
+                "to": "assistant_id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 240,
+        "wires": [
+            [
+                "a2c342ed5fbba5a3",
+                "f7ea2a5817b21d83"
+            ]
+        ]
+    },
+    {
+        "id": "4b2a4b807ef156cd",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "a432db9cb913d833",
+        "name": "P /v1/threads/{thread_id}/runs",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 1030,
+        "y": 500,
+        "wires": [
+            [
+                "0f5574d905e5c8c7",
+                "144f05db091f0b47"
+            ]
+        ]
+    },
+    {
+        "id": "d62cee054e6d8240",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "571d70c6356c9d4b",
+        "name": "G  /v1/threads/{thread_ID}/runs/{run_id}",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 810,
+        "y": 660,
+        "wires": [
+            [
+                "0ec7b96629220b57"
+            ]
+        ]
+    },
+    {
+        "id": "0ec7b96629220b57",
+        "type": "switch",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "571d70c6356c9d4b",
+        "name": "",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "in_progress",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "completed",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1030,
+        "y": 660,
+        "wires": [
+            [
+                "a9a2617bbdc6dd95",
+                "58c20826db10061c"
+            ],
+            [
+                "7821d589362a6d99"
+            ],
+            [
+                "e6c68c9a44edf751"
+            ]
+        ]
+    },
+    {
+        "id": "a9a2617bbdc6dd95",
+        "type": "delay",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "571d70c6356c9d4b",
+        "name": "Random Timer",
+        "pauseType": "random",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "2",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 600,
+        "wires": [
+            [
+                "d62cee054e6d8240"
+            ]
+        ]
+    },
+    {
+        "id": "0f5574d905e5c8c7",
+        "type": "template",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "571d70c6356c9d4b",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/runs/{{payload.id}}",
+        "output": "str",
+        "x": 500,
+        "y": 660,
+        "wires": [
+            [
+                "d62cee054e6d8240",
+                "885211f2ae6dbee4"
+            ]
+        ]
+    },
+    {
+        "id": "172de4fe1a1d69ab",
+        "type": "http request",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "6048d1f818f29411",
+        "name": "G /v1/threads/{thread_id}/messages",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 940,
+        "y": 780,
+        "wires": [
+            [
+                "3680816ee1cc7193"
+            ]
+        ]
+    },
+    {
+        "id": "7821d589362a6d99",
+        "type": "template",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "6048d1f818f29411",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/messages",
+        "output": "str",
+        "x": 720,
+        "y": 780,
+        "wires": [
+            [
+                "172de4fe1a1d69ab",
+                "5ffb191401e61f48"
+            ]
+        ]
+    },
+    {
+        "id": "a2c342ed5fbba5a3",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Create Thread",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "742ce4277b40cb9d",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Passed Message",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "144f05db091f0b47",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Run",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3680816ee1cc7193",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Done",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58c20826db10061c",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Waiting for Result",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "42d22e61154ff546",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.role",
+                "pt": "msg",
+                "to": "user",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.content",
+                "pt": "msg",
+                "to": "message",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "71d8b4e9e0169794"
+            ]
+        ]
+    },
+    {
+        "id": "70c49581a0998a22",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "a432db9cb913d833",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.assistant_id",
+                "pt": "msg",
+                "to": "assistant",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 500,
+        "wires": [
+            [
+                "4b2a4b807ef156cd"
+            ]
+        ]
+    },
+    {
+        "id": "e6c68c9a44edf751",
+        "type": "change",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Error",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6c43550bec32ca3",
+        "type": "comment",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "API Key",
+        "info": "You will have to get an API key from OpenAI \nand enter in each of the http requests nodes ",
+        "x": 960,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "71d8b4e9e0169794",
+        "type": "function",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "decodeHTMLEntries",
+        "func": "// Function to decode HTML entities\nfunction decodeHTMLEntities(text) {\n    // Ensure the input is a string\n    text = String(text);\n\n    const entities = {\n        'amp': '&',\n        'apos': \"'\",\n        'lt': '<',\n        'gt': '>',\n        'quot': '\"',\n        '#39': \"'\"\n    };\n\n    return text.replace(/&([^;]+);/g, (entity, entityCode) => {\n        let match;\n\n        if (entities[entityCode]) {\n            return entities[entityCode];\n        } else if (match = entityCode.match(/^#x([\\da-fA-F]+)$/)) {\n            return String.fromCharCode(parseInt(match[1], 16));\n        } else if (match = entityCode.match(/^#(\\d+)$/)) {\n            return String.fromCharCode(~~match[1]);\n        } else {\n            return entity;\n        }\n    });\n}\n\n// Use the function to decode the payload\nmsg.payload = decodeHTMLEntities(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 360,
+        "wires": [
+            [
+                "a8039fddbcaf65c2"
+            ]
+        ]
+    },
+    {
+        "id": "aa85283c21af91b9",
+        "type": "debug",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "debug 110",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f06f4b43db4ec849",
+        "type": "debug",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "a432db9cb913d833",
+        "name": "debug 111",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "885211f2ae6dbee4",
+        "type": "debug",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "571d70c6356c9d4b",
+        "name": "debug 112",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "5ffb191401e61f48",
+        "type": "debug",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "6048d1f818f29411",
+        "name": "debug 113",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "8806364e8917f2c5",
+        "type": "debug",
+        "z": "c7a55f3cc37ae2d4",
+        "g": "c561465f500e3a46",
+        "name": "debug 114",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f7ea2a5817b21d83",
+        "type": "junction",
+        "z": "c7a55f3cc37ae2d4",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "7b0edadfa10c3b71"
+            ]
+        ]
+    },
+    {
+        "id": "48ee1b34368ef1dd",
+        "type": "junction",
+        "z": "c7a55f3cc37ae2d4",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "0f5488e37a493661"
+            ]
+        ]
+    },
+    {
+        "id": "438072214db9d4db",
+        "type": "group",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "Create Thread",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "f24f137c4f01a6b5",
+            "757105417f0148d6"
+        ],
+        "x": 694,
+        "y": 199,
+        "w": 412,
+        "h": 82
+    },
+    {
+        "id": "c561465f500e3a46",
+        "type": "group",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "Create Message",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "a8039fddbcaf65c2",
+            "7b0edadfa10c3b71",
+            "42d22e61154ff546",
+            "71d8b4e9e0169794",
+            "aa85283c21af91b9",
+            "8806364e8917f2c5"
+        ],
+        "x": 294,
+        "y": 219,
+        "w": 1042,
+        "h": 182
+    },
+    {
+        "id": "a432db9cb913d833",
+        "type": "group",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "List Runs and Starts Runs",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "a4aba876a789a641",
+            "0f5488e37a493661",
+            "4b2a4b807ef156cd",
+            "70c49581a0998a22",
+            "f06f4b43db4ec849"
+        ],
+        "x": 134,
+        "y": 419,
+        "w": 1052,
+        "h": 122
+    },
+    {
+        "id": "571d70c6356c9d4b",
+        "type": "group",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "Check for Results",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "d62cee054e6d8240",
+            "0ec7b96629220b57",
+            "a9a2617bbdc6dd95",
+            "0f5574d905e5c8c7",
+            "885211f2ae6dbee4"
+        ],
+        "x": 414,
+        "y": 559,
+        "w": 692,
+        "h": 149.5
+    },
+    {
+        "id": "6048d1f818f29411",
+        "type": "group",
+        "z": "c7a55f3cc37ae2d4",
+        "name": "Show Results",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "172de4fe1a1d69ab",
+            "7821d589362a6d99",
+            "5ffb191401e61f48"
+        ],
+        "x": 634,
+        "y": 739,
+        "w": 472,
+        "h": 142
+    },
+    {
+        "id": "994db95356b20bb7",
+        "type": "subflow",
+        "name": "Chatgpt API assistant",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 560,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "d4b236e76618c547"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1660,
+                "y": 780,
+                "wires": [
+                    {
+                        "id": "52bc7c761e6450e7",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99",
+        "status": {
+            "x": 1680,
+            "y": 320,
+            "wires": [
+                {
+                    "id": "4b83fbf485c9b915",
+                    "port": 0
+                },
+                {
+                    "id": "ea026b5ed239a354",
+                    "port": 0
+                },
+                {
+                    "id": "01136c502ab729f0",
+                    "port": 0
+                },
+                {
+                    "id": "6cf925a681168b36",
+                    "port": 0
+                },
+                {
+                    "id": "345bfe5163aac802",
+                    "port": 0
+                },
+                {
+                    "id": "1ff5dbe24224b914",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
+        "id": "d4b236e76618c547",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "849013dbb60851f4",
+        "name": "P v1/threads",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.openai.com/v1/threads",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 790,
+        "y": 240,
+        "wires": [
+            [
+                "10b9c58f1ea09df7",
+                "7696157fc45a368c"
+            ]
+        ]
+    },
+    {
+        "id": "0541d171d95fd2af",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "840e6317b1cc6a4c",
+        "name": "P v1/threads/thread_id/messages",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 1040,
+        "y": 360,
+        "wires": [
+            [
+                "ea026b5ed239a354",
+                "a234e5fac7a338eb"
+            ]
+        ]
+    },
+    {
+        "id": "fc9eb3b4858e1287",
+        "type": "template",
+        "z": "994db95356b20bb7",
+        "g": "840e6317b1cc6a4c",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{payload.id}}/messages",
+        "output": "str",
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "573129fa24f9fddd",
+                "5a2367e9128a8f43"
+            ]
+        ]
+    },
+    {
+        "id": "32ecded9e194f731",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "d277500efd261c01",
+        "name": "G v1/threads/thread_id/runs",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 460,
+        "y": 480,
+        "wires": [
+            [
+                "7325d38bcfe84c09"
+            ]
+        ]
+    },
+    {
+        "id": "71b5ebbfb098878f",
+        "type": "template",
+        "z": "994db95356b20bb7",
+        "g": "d277500efd261c01",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/runs",
+        "output": "str",
+        "x": 240,
+        "y": 480,
+        "wires": [
+            [
+                "32ecded9e194f731",
+                "7f46dcb0ee92e3a2"
+            ]
+        ]
+    },
+    {
+        "id": "10b9c58f1ea09df7",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "g": "849013dbb60851f4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "thread",
+                "pt": "msg",
+                "to": "payload.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "assistant",
+                "pt": "msg",
+                "to": "assistant_id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 240,
+        "wires": [
+            [
+                "4b83fbf485c9b915",
+                "fba6396f23b189ad"
+            ]
+        ]
+    },
+    {
+        "id": "7a076049467e13cf",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "d277500efd261c01",
+        "name": "P /v1/threads/{thread_id}/runs",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 950,
+        "y": 480,
+        "wires": [
+            [
+                "f98dccb9dbf462df",
+                "01136c502ab729f0"
+            ]
+        ]
+    },
+    {
+        "id": "e971f3c0e24dfe5b",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "689aefb2e1c604c3",
+        "name": "G  /v1/threads/{thread_ID}/runs/{run_id}",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 810,
+        "y": 660,
+        "wires": [
+            [
+                "a49546610f85d52b"
+            ]
+        ]
+    },
+    {
+        "id": "a49546610f85d52b",
+        "type": "switch",
+        "z": "994db95356b20bb7",
+        "g": "689aefb2e1c604c3",
+        "name": "",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "in_progress",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "completed",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1030,
+        "y": 660,
+        "wires": [
+            [
+                "3e5482f873b3c628",
+                "345bfe5163aac802"
+            ],
+            [
+                "a92befc96da5c957"
+            ],
+            [
+                "1ff5dbe24224b914"
+            ]
+        ]
+    },
+    {
+        "id": "3e5482f873b3c628",
+        "type": "delay",
+        "z": "994db95356b20bb7",
+        "g": "689aefb2e1c604c3",
+        "name": "Random Timer",
+        "pauseType": "random",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "2",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 600,
+        "wires": [
+            [
+                "e971f3c0e24dfe5b"
+            ]
+        ]
+    },
+    {
+        "id": "f98dccb9dbf462df",
+        "type": "template",
+        "z": "994db95356b20bb7",
+        "g": "689aefb2e1c604c3",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/runs/{{payload.id}}",
+        "output": "str",
+        "x": 500,
+        "y": 660,
+        "wires": [
+            [
+                "e971f3c0e24dfe5b",
+                "f7e6777f357abbb9"
+            ]
+        ]
+    },
+    {
+        "id": "52bc7c761e6450e7",
+        "type": "http request",
+        "z": "994db95356b20bb7",
+        "g": "fb260e4136b75cee",
+        "name": "G /v1/threads/{thread_id}/messages",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "Accept",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "OpenAI-Beta",
+                "valueType": "other",
+                "valueValue": "assistants=v2"
+            }
+        ],
+        "x": 940,
+        "y": 780,
+        "wires": [
+            [
+                "6cf925a681168b36"
+            ]
+        ]
+    },
+    {
+        "id": "a92befc96da5c957",
+        "type": "template",
+        "z": "994db95356b20bb7",
+        "g": "fb260e4136b75cee",
+        "name": "",
+        "field": "url",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "https://api.openai.com/v1/threads/{{thread}}/messages",
+        "output": "str",
+        "x": 600,
+        "y": 780,
+        "wires": [
+            [
+                "52bc7c761e6450e7",
+                "4e483c303bc18903"
+            ]
+        ]
+    },
+    {
+        "id": "4b83fbf485c9b915",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Create Thread",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea026b5ed239a354",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Passed Message",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "01136c502ab729f0",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Run",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6cf925a681168b36",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Done",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "345bfe5163aac802",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Waiting for Result",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "573129fa24f9fddd",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "g": "840e6317b1cc6a4c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.role",
+                "pt": "msg",
+                "to": "user",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.content",
+                "pt": "msg",
+                "to": "message",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "0541d171d95fd2af"
+            ]
+        ]
+    },
+    {
+        "id": "7325d38bcfe84c09",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "g": "d277500efd261c01",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.assistant_id",
+                "pt": "msg",
+                "to": "assistant",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "7a076049467e13cf"
+            ]
+        ]
+    },
+    {
+        "id": "1ff5dbe24224b914",
+        "type": "change",
+        "z": "994db95356b20bb7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Error",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "368c6a1ea3337253",
+        "type": "comment",
+        "z": "994db95356b20bb7",
+        "name": "API Key",
+        "info": "You will have to get an API key from OpenAI \nand enter in each of the http requests nodes ",
+        "x": 960,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7696157fc45a368c",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "g": "849013dbb60851f4",
+        "name": "debug 103",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5a2367e9128a8f43",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "g": "840e6317b1cc6a4c",
+        "name": "debug 104",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "7f46dcb0ee92e3a2",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "g": "d277500efd261c01",
+        "name": "debug 105",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f7e6777f357abbb9",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "g": "689aefb2e1c604c3",
+        "name": "debug 106",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "4e483c303bc18903",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "g": "fb260e4136b75cee",
+        "name": "debug 107",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "02124ffcb19b8f07",
+        "type": "debug",
+        "z": "994db95356b20bb7",
+        "name": "debug 108",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1940,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "fba6396f23b189ad",
+        "type": "junction",
+        "z": "994db95356b20bb7",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "fc9eb3b4858e1287"
+            ]
+        ]
+    },
+    {
+        "id": "a234e5fac7a338eb",
+        "type": "junction",
+        "z": "994db95356b20bb7",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "71b5ebbfb098878f"
+            ]
+        ]
+    },
+    {
+        "id": "849013dbb60851f4",
+        "type": "group",
+        "z": "994db95356b20bb7",
+        "name": "Create Thread",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "d4b236e76618c547",
+            "10b9c58f1ea09df7",
+            "7696157fc45a368c"
+        ],
+        "x": 694,
+        "y": 139,
+        "w": 412,
+        "h": 142
+    },
+    {
+        "id": "840e6317b1cc6a4c",
+        "type": "group",
+        "z": "994db95356b20bb7",
+        "name": "Create Message",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0541d171d95fd2af",
+            "fc9eb3b4858e1287",
+            "573129fa24f9fddd",
+            "5a2367e9128a8f43"
+        ],
+        "x": 294,
+        "y": 239,
+        "w": 912,
+        "h": 162
+    },
+    {
+        "id": "d277500efd261c01",
+        "type": "group",
+        "z": "994db95356b20bb7",
+        "name": "List Runs and Starts Runs",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "32ecded9e194f731",
+            "71b5ebbfb098878f",
+            "7a076049467e13cf",
+            "7325d38bcfe84c09",
+            "7f46dcb0ee92e3a2"
+        ],
+        "x": 154,
+        "y": 399,
+        "w": 952,
+        "h": 122
+    },
+    {
+        "id": "689aefb2e1c604c3",
+        "type": "group",
+        "z": "994db95356b20bb7",
+        "name": "Check for Results",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "e971f3c0e24dfe5b",
+            "a49546610f85d52b",
+            "3e5482f873b3c628",
+            "f98dccb9dbf462df",
+            "f7e6777f357abbb9"
+        ],
+        "x": 414,
+        "y": 559,
+        "w": 692,
+        "h": 149.5
+    },
+    {
+        "id": "fb260e4136b75cee",
+        "type": "group",
+        "z": "994db95356b20bb7",
+        "name": "Show Results",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "52bc7c761e6450e7",
+            "a92befc96da5c957",
+            "4e483c303bc18903"
+        ],
+        "x": 514,
+        "y": 699,
+        "w": 592,
+        "h": 122
+    },
+    {
+        "id": "3041de74dada94cc",
+        "type": "tab",
+        "label": "Flow1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "47c345a7661c152b",
+        "type": "group",
+        "z": "3041de74dada94cc",
+        "name": "Create Thread and Run",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "61dc6c74c9e3495a",
+            "4e1c3d71baecfced"
+        ],
+        "x": 674,
+        "y": 879,
+        "w": 292,
+        "h": 122
+    },
+    {
+        "id": "c552dc807fbd80bc",
+        "type": "group",
+        "z": "3041de74dada94cc",
+        "name": "Create Thread and Run",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "3f1b1388333118d3",
+            "20ab879f8b8377ea",
+            "b7aa05bcebf7ff0e",
+            "6320fc6efa28462c",
+            "d43e7fe68b66708c"
+        ],
+        "x": 2754,
+        "y": 819,
+        "w": 532,
+        "h": 162
+    },
+    {
+        "id": "c527be640dad7c31",
+        "type": "http request",
+        "z": "3041de74dada94cc",
+        "name": "ISS",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://api.open-notify.org/iss-now.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 430,
+        "y": 820,
+        "wires": [
+            [
+                "fb5cfb62a8c08ede"
+            ]
+        ]
+    },
+    {
+        "id": "d7158e8fe4025720",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "fb5cfb62a8c08ede",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 610,
+        "y": 820,
+        "wires": [
+            [
+                "d7158e8fe4025720",
+                "c2b5e7876db58c34"
+            ]
+        ]
+    },
+    {
+        "id": "c2b5e7876db58c34",
+        "type": "change",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "ISS",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.lon",
+                "pt": "msg",
+                "to": "payload.iss_position.longitude",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.lat",
+                "pt": "msg",
+                "to": "payload.iss_position.latitude",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 820,
+        "wires": [
+            [
+                "ef6883b043d8861a",
+                "c130b73f4bf08b53"
+            ]
+        ]
+    },
+    {
+        "id": "c71003aa01e2105c",
+        "type": "worldmap",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "true",
+        "panlock": "true",
+        "zoomlock": "true",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "true",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,UKOS",
+        "mapname": "Dark",
+        "mapurl": "https://snazzymaps.com/style/72543/assassins-creed-iv#google_vignette",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1440,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "ef6883b043d8861a",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "name": "function 2",
+        "func": "// Check if iss_position data exists\nif (msg.payload.iss_position) {\n    msg.payload = {\n        name: \"ISS\",\n        lat: msg.payload.iss_position.latitude,   // Use actual latitude\n        lon: msg.payload.iss_position.longitude,  // Use actual longitude\n        icon: \"fa-space-shuttle\",                 // Font Awesome icon for ISS\n        iconColor: \"#0000FF\",                     // Optional color choice\n        label: \"ISS Location\"                     // Display ISS label\n    };\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 760,
+        "wires": [
+            [
+                "c71003aa01e2105c"
+            ]
+        ]
+    },
+    {
+        "id": "c130b73f4bf08b53",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "71b932a8ac748bc0",
+        "type": "inject",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 820,
+        "wires": [
+            [
+                "c527be640dad7c31"
+            ]
+        ]
+    },
+    {
+        "id": "b21aece79ba4996c",
+        "type": "ui_template",
+        "z": "3041de74dada94cc",
+        "group": "2ef4874ce1c47615",
+        "name": "Worldmap",
+        "order": 2,
+        "width": 35,
+        "height": "16",
+        "format": "<!DOCTYPE html>\n<html>\n\n<head>\n    <title>Worldmap with Astronaut Info</title>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <!-- Include AngularJS -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js\"></script>\n\n    <style>\n        /* Your existing CSS */\n        .container {\n            display: flex;\n            height: 100vh;\n            overflow: hidden;\n        }\n\n        .sidebar {\n            position: relative;\n            width: 300px;\n            background-color: #333;\n            color: white;\n            padding: 10px;\n            border-right: 2px solid #ccc;\n            overflow-y: auto;\n            display: flex;\n            flex-direction: column;\n        }\n\n        .map {\n            flex-grow: 1;\n            height: 100%;\n        }\n\n        .astronaut-list {\n            list-style: none;\n            padding: 0;\n            margin: 0;\n            flex-grow: 1;\n            overflow-y: auto;\n        }\n\n        .astronaut-list li {\n            display: flex;\n            margin-bottom: 15px;\n            align-items: center;\n        }\n\n        .astronaut-list img {\n            width: 60px;\n            height: 60px;\n            border-radius: 50%;\n            margin-right: 10px;\n        }\n\n        .astronaut-list div {\n            display: flex;\n            flex-direction: column;\n        }\n\n        .astronaut-list div strong {\n            font-size: 16px;\n            color: #fff;\n        }\n\n        .astronaut-list div em {\n            font-size: 12px;\n            color: #ccc;\n        }\n\n        iframe {\n            width: 100%;\n            height: 100%;\n            border: none;\n        }\n\n        /* Chatbot styles */\n        .chatbot-container {\n            padding-top: 10px;\n            border-top: 1px solid #ccc;\n        }\n\n        .chatbox {\n            display: flex;\n            flex-direction: column;\n            gap: 10px;\n        }\n\n        .messages {\n            max-height: 150px;\n            overflow-y: auto;\n            padding: 5px;\n            background-color: #222;\n            border-radius: 5px;\n        }\n\n        .messages .message {\n            color: #fff;\n            margin-bottom: 5px;\n        }\n\n        .user-message {\n            font-weight: bold;\n            color: #4CAF50;\n        }\n\n        .bot-message {\n            font-style: italic;\n            color: #4A90E2;\n        }\n\n        input[type=\"text\"] {\n            padding: 6px;\n            font-size: 14px;\n            border: none;\n            border-radius: 5px;\n            margin-bottom: 10px;\n            width: 95%;\n        }\n\n        button {\n            padding: 8px;\n            background-color: grey;\n            color: white;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n            font-size: 14px;\n        }\n        \n        .logo-overlay {\n        position: fixed; /* Make it overlay the entire viewport */\n        top: 12px; /* Adjust top position as needed */\n        right: 1600px; /* Adjust right position as needed */\n        width: 120px; /* Adjust size */\n        z-index: 10; /* Ensure it overlays on top of other elements */\n        }\n        button:hover {\n            background-color: #6e6e6e;\n        }\n    </style>\n</head>\n\n<body ng-app>\n<!-- Logo Image -->\n    <img src=\"https://i.postimg.cc/9XrnK6Nf/logo.png\" alt=\"Logo\" class=\"logo-overlay\">\n    <div class=\"container\">\n        <!-- Sidebar for Astronaut Info -->\n        <div class=\"sidebar\">\n            \n            <h2>Astronauts</h2>\n            <ul class=\"astronaut-list\">\n                <!-- Loop through each astronaut object -->\n                <li ng-repeat=\"astronaut in astronauts\">\n                    <img ng-src=\"{{astronaut.imageUrl}}\" alt=\"{{astronaut.name}}\">\n                    <div>\n                        <strong>{{astronaut.name}}</strong>\n                        <em>{{astronaut.info}}</em>\n                    </div>\n                </li>\n            </ul>\n\n            <!-- Chatbot Section -->\n            <div class=\"chatbot-container\">\n                <div class=\"chatbox\">\n                    <div class=\"messages\" id=\"chatMessages\"></div>\n                    <input type=\"text\" id=\"userInput\" placeholder=\"Input... (# for filter)\" />\n                    <button id=\"sendButton\">Send</button>\n                </div>\n            </div>\n        </div>\n\n        <!-- Map area -->\n        <div class=\"map\">\n            <iframe src=\"http://localhost:1880/worldmap\"></iframe>\n        </div>\n    </div>\n\n    <script>\n        (function(scope) {\n        const sendButton = document.getElementById('sendButton');\n        const userInput = document.getElementById('userInput');\n        const chatMessages = document.getElementById('chatMessages');\n        let sending = false;\n        \n        function sendMessage() {\n        const userMessage = userInput.value.trim();\n        if (userMessage && !sending) {\n        sending = true;\n        console.log('Sending message:', sending);\n        \n        const userMessageElement = document.createElement('div');\n        userMessageElement.classList.add('message', 'user-message');\n        userMessageElement.textContent = `You: ${userMessage}`;\n        chatMessages.appendChild(userMessageElement);\n        chatMessages.scrollTop = chatMessages.scrollHeight;\n        \n        userInput.value = '';\n        scope.send({ payload: { userMessage: userMessage, awaitUserReply: true } });\n        \n        setTimeout(() => {\n        if (sending) {\n        console.warn('Fallback: Resetting sending flag.');\n        sending = false;\n        }\n        }, 5000); // Timeout fallback\n        }\n        }\n        \n        sendButton.addEventListener('click', sendMessage);\n        userInput.addEventListener('keydown', function(event) {\n        if (event.key === 'Enter') {\n        sendMessage();\n        }\n        });\n        \n        scope.$watch('msg', function(msg) {\n        if (msg && msg.payload) {\n        if (msg.payload.astronauts) {\n        scope.astronauts = msg.payload.astronauts;\n        scope.$applyAsync();\n        }\n        \n        if (msg.payload.botResponse) {\n        const botMessageElement = document.createElement('div');\n        botMessageElement.classList.add('message', 'bot-message');\n        botMessageElement.textContent = `NodeAI: ${msg.payload.botResponse}`;\n        chatMessages.appendChild(botMessageElement);\n        chatMessages.scrollTop = chatMessages.scrollHeight;\n        \n        sending = false;\n        console.log('Bot response received, reset sending:', sending);\n        }\n        }\n        });\n        })(scope);\n    </script>\n\n</body>\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1690,
+        "y": 920,
+        "wires": [
+            [
+                "68da477ed1cb29c8",
+                "f6b49d616313567e"
+            ]
+        ]
+    },
+    {
+        "id": "68da477ed1cb29c8",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1720,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "2c7dc77341199207",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 2450,
+        "y": 1100,
+        "wires": [
+            [
+                "70b84435a8a23269",
+                "d6d6cbc676920526"
+            ]
+        ]
+    },
+    {
+        "id": "70b84435a8a23269",
+        "type": "chatgpt",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "topic": "gpt4o",
+        "BaseUrl": "https://api.openai.com",
+        "x": 2700,
+        "y": 1100,
+        "wires": [
+            [
+                "ddc0670138e58b74",
+                "3bf04f3bdf6aadaf"
+            ]
+        ]
+    },
+    {
+        "id": "c97db69319613128",
+        "type": "switch",
+        "z": "3041de74dada94cc",
+        "name": "Bot response",
+        "property": "payload.botResponse",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 2590,
+        "y": 1340,
+        "wires": [
+            [
+                "b21aece79ba4996c",
+                "5bf538d5715c0a0c"
+            ]
+        ]
+    },
+    {
+        "id": "ddc0670138e58b74",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 32",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2700,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "9e41b34fbd5274a8",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "name": "function 5",
+        "func": "// Wrap the bot's response in an object with botResponse property\nmsg.payload = {\n    botResponse: msg.payload // This wraps the plain string response\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3320,
+        "y": 1040,
+        "wires": [
+            [
+                "e438d707470cc010",
+                "c97db69319613128"
+            ]
+        ]
+    },
+    {
+        "id": "e438d707470cc010",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 33",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3440,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "7851fb8983061238",
+        "type": "switch",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload.userMessage",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "#",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "payload.userMessage",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 2070,
+        "y": 920,
+        "wires": [
+            [
+                "f3a137254783b0ce",
+                "8928b41ee3e0d661"
+            ],
+            [
+                "2c7dc77341199207"
+            ]
+        ]
+    },
+    {
+        "id": "1cd8ebbce1bc9701",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 2570,
+        "y": 620,
+        "wires": [
+            [
+                "48c5831760860ab6",
+                "b21aece79ba4996c"
+            ]
+        ]
+    },
+    {
+        "id": "fb6f20b9aabd8ce5",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 43",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3440,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "5bf538d5715c0a0c",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 44",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2600,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "48c5831760860ab6",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2580,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "d6d6cbc676920526",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2440,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "f6b49d616313567e",
+        "type": "switch",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload.userMessage",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1910,
+        "y": 920,
+        "wires": [
+            [
+                "7851fb8983061238"
+            ]
+        ]
+    },
+    {
+        "id": "3bf04f3bdf6aadaf",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 2930,
+        "y": 1100,
+        "wires": [
+            [
+                "4df9f37afb919e05",
+                "9e41b34fbd5274a8"
+            ]
+        ]
+    },
+    {
+        "id": "4df9f37afb919e05",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 52",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2920,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d91e518d879e0d5e",
+        "type": "switch",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload.astronauts",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "payload.astronauts",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 3290,
+        "y": 860,
+        "wires": [
+            [
+                "fb6f20b9aabd8ce5",
+                "1cd8ebbce1bc9701"
+            ]
+        ]
+    },
+    {
+        "id": "8ff3fb910b96c51c",
+        "type": "comment",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "info": "API KEY: \n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",
+        "x": 1580,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "1db98c4d4932301e",
+        "type": "http request",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://whoisinspace.com/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 130,
+        "y": 960,
+        "wires": [
+            [
+                "d8f54028c1c39596"
+            ]
+        ]
+    },
+    {
+        "id": "d8f54028c1c39596",
+        "type": "html",
+        "z": "3041de74dada94cc",
+        "name": "Scraper",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "img",
+        "ret": "attr",
+        "as": "single",
+        "chr": "_",
+        "x": 300,
+        "y": 960,
+        "wires": [
+            [
+                "ddd5bff207a0cc1f",
+                "9190c94ea361db98"
+            ]
+        ]
+    },
+    {
+        "id": "ddd5bff207a0cc1f",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "name": "function 10",
+        "func": "// Ensure msg.payload is an array of image objects\nif (!Array.isArray(msg.payload)) {\n    throw new Error(\"Payload must be an array of image objects.\");\n}\n\n// Convert the array of image objects into a formatted string\nlet formattedContent = msg.payload.map((image, index) => {\n    let description = image.alt || `Image ${index + 1}`;\n    let url = image.src || \"No URL available\";\n    let width = image.width || \"Unknown\";\n    let height = image.height || \"Unknown\";\n\n    return `Image Description: ${description}\\nImage URL: ${url}\\nWidth: ${width}px\\nHeight: ${height}px\\n`;\n}).join(\"\\n\"); // Combine all formatted strings with a double line break\n\n// Construct the messages array with the required role and content fields\nmsg.payload = {\n    messages: [\n        {\n            role: \"user\", // Set the role for the sender\n            content: String(formattedContent) // Ensure content is a string\n        }\n    ]\n};\nmsg.assistant_id = \"asst_2GHFCH25HPWficlvd0rSAkxv\";\n\n// Return the updated message object\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 960,
+        "wires": [
+            [
+                "1a4c0a29424df925",
+                "61dc6c74c9e3495a"
+            ]
+        ]
+    },
+    {
+        "id": "53e1fef40478ac30",
+        "type": "inject",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 900,
+        "wires": [
+            [
+                "1db98c4d4932301e"
+            ]
+        ]
+    },
+    {
+        "id": "1a4c0a29424df925",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 87",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "9190c94ea361db98",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 88",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "153785e87780b27f",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 90",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5c1bb15304f104fb",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "name": "function 11",
+        "func": "// Check if msg.payload contains the necessary structure to extract the value\nif (msg.payload && Array.isArray(msg.payload.data) && msg.payload.data.length > 0) {\n    // Extracting the content from the first data object\n    let contentValue = msg.payload.data[0]?.content?.[0]?.text?.value;\n\n    if (contentValue) {\n        // Set the extracted value to msg.payload\n        msg.payload = contentValue.trim(); // Assign the value to msg.payload\n    } else {\n        throw new Error(\"Content value is not found in the payload\");\n    }\n} else {\n    throw new Error(\"Payload data is not in the expected structure\");\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 960,
+        "wires": [
+            [
+                "153785e87780b27f",
+                "7f3e1426bb16f114"
+            ]
+        ]
+    },
+    {
+        "id": "7f3e1426bb16f114",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1330,
+        "y": 940,
+        "wires": [
+            [
+                "b21aece79ba4996c",
+                "d037c35a01e9d511",
+                "3d3397bab69e2fcf"
+            ]
+        ]
+    },
+    {
+        "id": "d037c35a01e9d511",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 92",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "caa09c66caee20e1",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "name": "function 12",
+        "func": "// Check if msg.payload is an array\nif (Array.isArray(msg.payload)) {\n    let userMessage = null;\n    let astronauts = null;\n\n    // Extract userMessage and astronauts from the payload\n    for (let item of msg.payload) {\n        if (item.userMessage) {\n            userMessage = item.userMessage;\n        }\n        if (item.astronauts) {\n            astronauts = item.astronauts;\n        }\n    }\n\n    // Ensure userMessage exists\n    if (!userMessage) {\n        throw new Error(\"Payload must contain a userMessage.\");\n    }\n\n    // Format the user message and append astronaut data if present\n    let formattedMessage = userMessage;\n    if (astronauts && Array.isArray(astronauts)) {\n        astronauts.forEach(astronaut => {\n            let name = astronaut.name || \"Unknown\";\n            let info = astronaut.info || \"No information available.\";\n            let imageUrl = astronaut.imageUrl || \"No image available.\";\n            formattedMessage += `\\nName: ${name}\\nInfo: ${info}\\nImage URL: ${imageUrl}`;\n        });\n    }\n\n    // Construct the payload for the API\n    msg.payload = {\n        messages: [\n            {\n                role: \"user\", // Required role for OpenAI API\n                content: formattedMessage.trim() // Ensure the message is a trimmed string\n            }\n        ]\n    };\n\n    // Set the assistant ID\n    msg.assistant_id = \"asst_cYGOajqmr5QQyL5QjNghYEzf\";\n} else {\n    throw new Error(\"Payload must be an array.\");\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2630,
+        "y": 900,
+        "wires": [
+            [
+                "68a03bfcd93f9fe8",
+                "3f1b1388333118d3"
+            ]
+        ]
+    },
+    {
+        "id": "68a03bfcd93f9fe8",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 93",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2640,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "b7aa05bcebf7ff0e",
+        "type": "function",
+        "z": "3041de74dada94cc",
+        "g": "c552dc807fbd80bc",
+        "name": "function 13",
+        "func": "// Check if msg.payload contains the necessary structure to extract the value\nif (msg.payload && Array.isArray(msg.payload.data) && msg.payload.data.length > 0) {\n    // Extracting the content from the first data object\n    let contentValue = msg.payload.data[0]?.content?.[0]?.text?.value;\n\n    if (contentValue) {\n        // Set the extracted value to msg.payload\n        msg.payload = contentValue.trim(); // Assign the value to msg.payload\n    } else {\n        throw new Error(\"Content value is not found in the payload\");\n    }\n} else {\n    throw new Error(\"Payload data is not in the expected structure\");\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3130,
+        "y": 860,
+        "wires": [
+            [
+                "d43e7fe68b66708c",
+                "d91e518d879e0d5e"
+            ]
+        ]
+    },
+    {
+        "id": "d43e7fe68b66708c",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "g": "c552dc807fbd80bc",
+        "name": "debug 95",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3180,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "f3a137254783b0ce",
+        "type": "join",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": true,
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2430,
+        "y": 900,
+        "wires": [
+            [
+                "69a6190f9c937924",
+                "caa09c66caee20e1"
+            ]
+        ]
+    },
+    {
+        "id": "69a6190f9c937924",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 96",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2440,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "3d3397bab69e2fcf",
+        "type": "file",
+        "z": "3041de74dada94cc",
+        "name": "Data in",
+        "filename": "C:\\Users\\Abdul\\.node-red\\myfile.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1600,
+        "y": 820,
+        "wires": [
+            [
+                "eb6a74062e8e77fd"
+            ]
+        ]
+    },
+    {
+        "id": "8928b41ee3e0d661",
+        "type": "file in",
+        "z": "3041de74dada94cc",
+        "name": "Data out",
+        "filename": "C:\\Users\\Abdul\\.node-red\\myfile.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2080,
+        "y": 880,
+        "wires": [
+            [
+                "27d00bf34765e1fd",
+                "dea2dd87b100820b"
+            ]
+        ]
+    },
+    {
+        "id": "eb6a74062e8e77fd",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 97",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "27d00bf34765e1fd",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 98",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2080,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "dea2dd87b100820b",
+        "type": "json",
+        "z": "3041de74dada94cc",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": true,
+        "x": 2250,
+        "y": 840,
+        "wires": [
+            [
+                "67e9cffe5dce5319",
+                "f3a137254783b0ce"
+            ]
+        ]
+    },
+    {
+        "id": "67e9cffe5dce5319",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "name": "debug 99",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2260,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "61dc6c74c9e3495a",
+        "type": "subflow:994db95356b20bb7",
+        "z": "3041de74dada94cc",
+        "g": "47c345a7661c152b",
+        "name": "Chatgpt API",
+        "x": 770,
+        "y": 960,
+        "wires": [
+            [
+                "4e1c3d71baecfced",
+                "5c1bb15304f104fb"
+            ]
+        ]
+    },
+    {
+        "id": "4e1c3d71baecfced",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "g": "47c345a7661c152b",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "3f1b1388333118d3",
+        "type": "subflow:c7a55f3cc37ae2d4",
+        "z": "3041de74dada94cc",
+        "g": "c552dc807fbd80bc",
+        "name": "Chatgpt API",
+        "x": 2850,
+        "y": 900,
+        "wires": [
+            [
+                "6320fc6efa28462c",
+                "b7aa05bcebf7ff0e"
+            ],
+            [
+                "20ab879f8b8377ea",
+                "9e41b34fbd5274a8"
+            ]
+        ]
+    },
+    {
+        "id": "6320fc6efa28462c",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "g": "c552dc807fbd80bc",
+        "name": "debug 109",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2890,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "20ab879f8b8377ea",
+        "type": "debug",
+        "z": "3041de74dada94cc",
+        "g": "c552dc807fbd80bc",
+        "name": "debug 115",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2910,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "2ef4874ce1c47615",
+        "type": "ui_group",
+        "name": "Home",
+        "tab": "1bec822794c16f77",
+        "order": 2,
+        "disp": true,
+        "width": "35",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1bec822794c16f77",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "'beenhere'",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
